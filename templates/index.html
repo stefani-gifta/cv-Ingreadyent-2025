@@ -4,8 +4,137 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ingreadyent</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --border-radius: 25px;
+    }
+
+    body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      background-color: #d4f1e7;
+      font-family: 'Trebuchet MS', sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      width: auto;
+      max-width: 85vw;
+      height: 85vh;
+      margin: 5vw;
+      box-shadow: 0 0 20px 5px #9cb9b0;
+      border-radius: var(--border-radius);
+      background-color: #c4e0d6;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #d4f1e7;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #467565;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      cursor: pointer;
+    }
+
+    header {
+      background-color: #6a9485;
+      color: #d4f1e7;
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      padding: 20px;
+    }
+
+    footer {
+      color: #d4f1e7;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      padding: 20px 0;
+    }
+    
+    main {
+      color: #494949;
+      height: 100%;
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+    }
+
+    #supported {
+      background-color: #d4f1e7;
+      color: #808080;
+      padding: 10px 20px;
+    }
+
+    #credit {
+      font-size: small;
+      padding: 30px 20px 0;
+      text-shadow: 0 0 5px #467565;
+    }
+
+    #upload-container {
+      height: 50%;
+      margin: 35px;
+      border: 1px double #467565;
+      border-radius: calc(var(--border-radius) - 5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      box-shadow: inset 0 0 25px 3px #6a9485;
+      background: center no-repeat url('https://img.freepik.com/premium-vector/minimalist-hand-drawn-food-drink-vector-illustration-collection_10707-4092.jpg?semt=ais_hybrid&w=740&q=80');
+      background-color: #e8eceb;
+      background-blend-mode: screen;
+      transition: 0.2s;
+    }
+
+    #upload-container:hover {
+      cursor: pointer;
+      box-shadow: inset 0 0 50px #6a9485;
+      background-color: #c4e0d6;
+      transition: 0.2s;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to <span>Ingreadyent</span></h1>
+  <div class="container">
+    <header class="title">
+      <h1>Ingreadyent</h1>
+      <p>Check your ingredient freshness and<br>get a recipe recommendation</p>
+    </header>
+    <main>
+      <div id="upload-container">
+        <p>Click to upload or drag your image here</p>
+        <p>PNG, JPG, JPEG up to 16MB</p>
+      </div>
+    </main>
+    <footer class="title">
+      <div id="supported">
+        Supported ingredients:<br>
+        Chicken, Fish, Goat, Beef, Tofu, Egg, <i>Tempeh</i>, Shrimp
+      </div>
+      <div id="credit">Created by Gifta, Aurel, Esme</div>
+    </footer>
+  </div>
 </body>
 </html>
