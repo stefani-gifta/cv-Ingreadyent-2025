@@ -182,6 +182,16 @@
         <img id="preview-image" class="hidden" alt="Preview"/>
         <button id="analyzer-button">Analyze</button>
       </div>
+
+      <div id="analysis-result" class="hidden">
+        <h5 id="ingredient-name"></h5>
+        <h5 id="quality-status"></h5>
+        <h5 id="confidence"></h5>
+        <div id="recipe-section">
+          <div id="recipe-container">
+          </div>
+        </div>
+      </div>
     </main>
     <footer class="title">
       <div id="supported">
@@ -197,6 +207,7 @@
     const uploadArea = document.getElementById('upload-container');
     const fileInput = document.getElementById('image-input');
     const previewImage = document.getElementById('preview-image');
+    const analyzeBtn = document.getElementById('analyzer-button');
     
     function handleFileSelect(file) {
       if(!file || !file.type.startsWith('image/')) {
@@ -234,6 +245,82 @@
         handleFileSelect(e.dataTransfer.files[0]);
       }
     });
+
+    const API_URL = '';
+    analyzeBtn.addEventListener('click', async () => {
+      if (!uploadedFile) return;
+      const formData = new FormData();
+      formData.append('image', uploadedFile);
+      try {
+        const response = await fetch(`${API_URL}/analyze`, {
+          method: 'POST',
+          body: formData
+        });
+        const data = await response.json();
+        if (data.success) {
+          displayResults(data);
+        } else {
+          alert(data.error || 'Analysis failed.');
+        }
+      } catch (error) {
+        alert('Failed to connect to server.');
+        console.error(error);
+      }
+    });
+  
+    function displayResults(data) {
+      <!-- ingredient (name), quality ('Fresh'/'Spoiled'), recipes, confidence? -->
+      document.getElementById("analysis-result").classList.remove("hidden");
+
+      const ingredientName = document.getElementById("ingredient-name");
+      ingredientName.textContent = data.ingredient;
+
+      const qualityStatus = document.getElementById("quality-status");
+      qualityStatus.textContent = data.quality;
+      if (data.quality === "Fresh") {
+        qualityStatus.innerHTML = "Safe! This ingredient looks fresh and safe to use. Great for cooking!";
+
+        const recipeSection = document.getElementById("recipe-section");
+        const recipeContainer = document.getElementById("recipe-container");
+        recipeContainer.innerHTML = data.recipes
+          .map((recipe) => createRecipeCard(recipe))
+          .join("");
+      } else {
+        qualityStatus.innerHTML = "Unsafe! This ingredient appears to be old or spoiled. We recommend discarding it for safety.";
+      }
+
+      document.getElementById("confidence").textContent =
+        data.confidence + "%";
+    }
+
+    function createRecipeCard(recipe) {
+      return `
+              <div class="recipe-card">
+                  <div class="recipe-title">${recipe.name}</div>
+                  <div class="recipe-translation">${recipe.name_translation}</div>
+
+                  <div class="recipe-ingredients">
+                    Ingredients:
+                  </div>
+                  <ul class="ingredient-list">
+                    ${recipe.ingredients
+                      .map(
+                        (ingredient) => `<li class="ingredient-item">${ingredient}</li>`
+                      )
+                      .join("")}
+                  </ul>
+
+                  <div class="recipe-instructions">Instructions:</div>
+                  <ul class="instruction-list">
+                    ${recipe.instructions
+                      .map(
+                        (instruction) => `<li class="instruction-item">${instruction}</li>`
+                      )
+                      .join("")}
+                  </ul>
+              </div>
+          `;
+      }
   </script>
 </body>
 </html>
