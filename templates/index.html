@@ -12,6 +12,7 @@
 
     :root {
       --border-radius: 25px;
+      --transition: 0.2s;
     }
 
     body {
@@ -97,7 +98,7 @@
 
     .image-container {
       width: 100%;
-      padding: 0 35px;
+      padding: 25px 35px;
       overflow: hidden;
       display: flex;
       justify-content: center;
@@ -109,7 +110,7 @@
       width: 100%;
       margin: 35px;
       padding: 25px;
-      border: 1px double #467565;
+      border: 1px solid #467565;
       border-radius: calc(var(--border-radius) - 5px);
       display: flex;
       justify-content: center;
@@ -120,14 +121,14 @@
       background: center no-repeat url('https://img.freepik.com/premium-vector/minimalist-hand-drawn-food-drink-vector-illustration-collection_10707-4092.jpg?semt=ais_hybrid&w=740&q=80');
       background-color: #e8eceb;
       background-blend-mode: screen;
-      transition: 0.2s;
+      transition: var(--transition);
     }
 
     #upload-container:hover {
       cursor: pointer;
       box-shadow: inset 0 0 50px #6a9485;
       background-color: #c4e0d6;
-      transition: 0.2s;
+      transition: var(--transition);
     }
 
     input[type="file"] {
@@ -138,11 +139,30 @@
       max-width: 500px;
       object-fit: contain;
       border-radius: var(--border-radius);
-      margin: 0 0 20px 0;
+      margin: 0 0 35px 0;
     }
 
     .hidden {
       display: none;
+    }
+
+    #analyzer-button {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid transparent;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      background-color: #467565;
+      color: #c4e0d6;
+      font-size: 15px;
+    }
+
+    #analyzer-button:hover {
+      cursor: pointer;
+      background-color: #e8eceb;
+      color: #467565;
+      border: 1px solid #467565;
+      box-shadow: 0 0 25px 3px #6a9485;
     }
   </style>
 </head>
@@ -160,6 +180,7 @@
         </div>
         <input type="file" id="image-input" accept="image/*"/>
         <img id="preview-image" class="hidden" alt="Preview"/>
+        <button id="analyzer-button">Analyze</button>
       </div>
     </main>
     <footer class="title">
