@@ -26,11 +26,12 @@ class IngredientFreshnessDataset(Dataset):
                     continue
 
                 for file in os.listdir(freshness_path):
-                    self.samples.append((
-                      os.path.join(freshness_path, file),
-                      self.ingredient_to_idx[ingredient],
-                      self.freshness_to_idx[freshness]
-                    ))
+                    if not file.endswith('.txt'):
+                        self.samples.append((
+                        os.path.join(freshness_path, file),
+                        self.ingredient_to_idx[ingredient],
+                        self.freshness_to_idx[freshness]
+                        ))
 
     def __len__(self):
         return len(self.samples)
