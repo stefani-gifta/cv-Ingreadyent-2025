@@ -21,6 +21,7 @@
       height: 100vh;
       display: flex;
       align-items: center;
+      justify-content: center;
       flex-direction: column;
       font-family: 'Trebuchet MS', sans-serif;
       overflow: hidden;
@@ -31,17 +32,18 @@
 
     .body-container {
       width: auto;
-      max-width: 85vw;
-      height: 85vh;
-      margin: 5vw;
+      max-width: 1400px;
+      min-height: auto;
+      max-height: 95vh;
+      margin: 2.5vh auto;
       box-shadow: 0 0 20px 5px #c4e0d6;
       border-radius: var(--border-radius);
       background-color: #c4e0d6;
       overflow-y: auto;
       overflow-x: hidden;
       display: flex;
-      justify-content: space-between;
       flex-direction: column;
+      transition: width 0.5s;
     }
 
     ::-webkit-scrollbar {
@@ -67,21 +69,25 @@
       color: #d4f1e7;
       border-radius: var(--border-radius) var(--border-radius) 0 0;
       padding: 20px;
+      flex-shrink: 0;
     }
 
     footer {
       color: #d4f1e7;
       border-radius: 0 0 var(--border-radius) var(--border-radius);
-      padding: 20px 0;
+      padding: 0 0 20px 0;
+      flex-shrink: 0;
     }
     
     main {
       color: #494949;
-      height: 100%;
+      flex: 1;
       display: flex;
-      justify-content: space-around;
-      align-items: center;
       flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      gap: 20px;
+      overflow-y: auto;
     }
 
     #supported {
@@ -98,18 +104,18 @@
 
     .image-container {
       width: 100%;
-      padding: 25px 35px;
-      overflow: hidden;
+      max-width: 600px;
+      padding: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      gap: 20px;
     }
 
     #upload-container {
       width: 100%;
-      margin: 35px;
-      padding: 25px;
+      padding: 40px 25px;
       border: 1px solid #467565;
       border-radius: calc(var(--border-radius) - 5px);
       display: flex;
@@ -136,14 +142,15 @@
     }
 
     #preview-image {
-      max-width: 500px;
+      max-width: 100%;
+      max-height: 400px;
       object-fit: contain;
       border-radius: var(--border-radius);
-      margin: 0 0 35px 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
     .hidden {
-      display: none;
+      display: none !important;
     }
 
     #analyzer-button {
@@ -155,14 +162,261 @@
       background-color: #467565;
       color: #c4e0d6;
       font-size: 15px;
+      font-weight: bold;
     }
 
-    #analyzer-button:hover {
+    #analyzer-button:hover:not(:disabled) {
       cursor: pointer;
       background-color: #e8eceb;
       color: #467565;
       border: 1px solid #467565;
       box-shadow: 0 0 25px 3px #6a9485;
+    }
+
+    #analyzer-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Loading Spinner */
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #e8eceb;
+      border-top: 5px solid #467565;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      color: #467565;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .timer {
+      color: #6a9485;
+      font-size: 14px;
+    }
+
+    /* Results Section */
+    #analysis-result {
+      width: 100%;
+      max-width: 900px;
+      padding: 30px;
+      background: linear-gradient(135deg, #e8eceb 0%, #d4f1e7 100%);
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #467565;
+    }
+
+    .result-header h2 {
+      color: #467565;
+      margin: 0 0 10px 0;
+      font-size: 28px;
+    }
+
+    .ingredient-badge {
+      display: inline-block;
+      padding: 10px 30px;
+      background-color: #467565;
+      color: white;
+      border-radius: 25px;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 10px 0;
+      box-shadow: 0 4px 10px rgba(70, 117, 101, 0.3);
+    }
+
+    .freshness-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .freshness-indicator.fresh {
+      background-color: rgba(45, 122, 79, 0.1);
+      border: 2px solid #2d7a4f;
+      color: #2d7a4f;
+    }
+
+    .freshness-indicator.spoiled {
+      background-color: rgba(201, 69, 69, 0.1);
+      border: 2px solid #c94545;
+      color: #c94545;
+    }
+
+    .status-icon {
+      font-size: 30px;
+    }
+
+    .confidence-section {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .confidence-card {
+      flex: 1;
+      padding: 15px;
+      background-color: white;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .confidence-label {
+      color: #6a9485;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .confidence-value {
+      color: #467565;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .message-box {
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px 0;
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .message-box.fresh {
+      background-color: rgba(212, 241, 231, 0.5);
+      color: #467565;
+    }
+
+    .message-box.spoiled {
+      background-color: rgba(255, 230, 230, 0.5);
+      color: #c94545;
+    }
+
+    /* Recipe Section */
+    #recipe-section {
+      margin-top: 30px;
+    }
+
+    #recipe-section h3 {
+      color: #467565;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .recipe-card {
+      background-color: white;
+      padding: 25px;
+      margin: 20px 0;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .recipe-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .recipe-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #467565;
+      margin-bottom: 5px;
+    }
+
+    .recipe-translation {
+      font-style: italic;
+      color: #6a9485;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .recipe-ingredients, .recipe-instructions {
+      font-weight: bold;
+      color: #467565;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .recipe-ingredients::before {
+      content: "🥘";
+      font-size: 20px;
+    }
+
+    .recipe-instructions::before {
+      content: "👨‍🍳";
+      font-size: 20px;
+    }
+
+    .ingredient-list, .instruction-list {
+      padding-left: 25px;
+      margin: 10px 0;
+    }
+
+    .ingredient-item, .instruction-item {
+      margin: 8px 0;
+      color: #494949;
+      line-height: 1.6;
+    }
+
+    .instruction-list {
+      list-style-type: decimal;
+    }
+
+    .no-recipes {
+      text-align: center;
+      padding: 40px;
+      color: #6a9485;
+      font-style: italic;
     }
   </style>
 </head>
@@ -180,16 +434,44 @@
         </div>
         <input type="file" id="image-input" accept="image/*"/>
         <img id="preview-image" class="hidden" alt="Preview"/>
-        <button id="analyzer-button">Analyze</button>
+        <button id="analyzer-button" disabled>Analyze</button>
       </div>
 
+      <!-- Loading State -->
+      <div id="loading-state" class="loading-container hidden">
+        <div class="spinner"></div>
+        <div class="loading-text">Analyzing your ingredient...</div>
+        <div class="timer" id="timer">0.0s</div>
+      </div>
+
+      <!-- Results Section -->
       <div id="analysis-result" class="hidden">
-        <h5 id="ingredient-name"></h5>
-        <h5 id="quality-status"></h5>
-        <h5 id="confidence"></h5>
-        <div id="recipe-section">
-          <div id="recipe-container">
+        <div class="result-header">
+          <h2>Analysis Complete!</h2>
+          <div class="ingredient-badge" id="ingredient-name"></div>
+        </div>
+
+        <div class="freshness-indicator" id="freshness-indicator">
+          <span class="status-icon" id="status-icon"></span>
+          <span id="quality-status"></span>
+        </div>
+
+        <div class="confidence-section">
+          <div class="confidence-card">
+            <div class="confidence-label">Ingredient Confidence</div>
+            <div class="confidence-value" id="ingredient-confidence"></div>
           </div>
+          <div class="confidence-card">
+            <div class="confidence-label">Freshness Confidence</div>
+            <div class="confidence-value" id="confidence"></div>
+          </div>
+        </div>
+
+        <div class="message-box" id="message-box"></div>
+
+        <div id="recipe-section" class="hidden">
+          <h3>🍳 Recipe Recommendations</h3>
+          <div id="recipe-container"></div>
         </div>
       </div>
     </main>
@@ -204,10 +486,15 @@
 
   <script>
     let uploadedFile = null;
+    let timerInterval = null;
+    let startTime = 0;
+
     const uploadArea = document.getElementById('upload-container');
     const fileInput = document.getElementById('image-input');
     const previewImage = document.getElementById('preview-image');
     const analyzeBtn = document.getElementById('analyzer-button');
+    const loadingState = document.getElementById('loading-state');
+    const analysisResult = document.getElementById('analysis-result');
     
     function handleFileSelect(file) {
       if(!file || !file.type.startsWith('image/')) {
@@ -222,6 +509,10 @@
       previewURL = URL.createObjectURL(file);
       previewImage.src = previewURL;
       previewImage.classList.remove('hidden');
+      analyzeBtn.disabled = false;
+      
+      // Hide previous results
+      analysisResult.classList.add('hidden');
     }
 
     uploadArea.addEventListener('click', () => fileInput.click());
@@ -233,94 +524,145 @@
 
     uploadArea.addEventListener('dragover', (e) => {
       e.preventDefault();
-      uploadArea.classList.add('dragover');
+      uploadArea.style.backgroundColor = '#b8d4c9';
     });
     uploadArea.addEventListener('dragleave', () => {
-      uploadArea.classList.remove('dragover');
+      uploadArea.style.backgroundColor = '';
     });
     uploadArea.addEventListener('drop', (e) => {
       e.preventDefault();
-      uploadArea.classList.remove('dragover');
+      uploadArea.style.backgroundColor = '';
       if(e.dataTransfer.files.length > 0) {
         handleFileSelect(e.dataTransfer.files[0]);
       }
     });
 
-    const API_URL = '';
+    function startTimer() {
+      startTime = Date.now();
+      timerInterval = setInterval(() => {
+        const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+        document.getElementById('timer').textContent = elapsed + 's';
+      }, 100);
+    }
+
+    function stopTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    // Automatically detect the API URL based on current location
+    const API_URL = window.location.origin;
+    
     analyzeBtn.addEventListener('click', async () => {
       if (!uploadedFile) return;
+      
+      // Show loading state
+      analyzeBtn.disabled = true;
+      loadingState.classList.remove('hidden');
+      analysisResult.classList.add('hidden');
+      startTimer();
+      
       const formData = new FormData();
       formData.append('image', uploadedFile);
+      
       try {
         const response = await fetch(`${API_URL}/analyze`, {
           method: 'POST',
           body: formData
         });
         const data = await response.json();
+        
+        stopTimer();
+        loadingState.classList.add('hidden');
+        
         if (data.success) {
           displayResults(data);
         } else {
           alert(data.error || 'Analysis failed.');
+          analyzeBtn.disabled = false;
         }
       } catch (error) {
-        alert('Failed to connect to server.');
+        stopTimer();
+        loadingState.classList.add('hidden');
+        alert('Failed to connect to server. Make sure Flask is running on port 5000.');
         console.error(error);
+        analyzeBtn.disabled = false;
       }
     });
   
     function displayResults(data) {
-      <!-- ingredient (name), quality ('Fresh'/'Spoiled'), recipes, confidence? -->
-      document.getElementById("analysis-result").classList.remove("hidden");
+      analysisResult.classList.remove('hidden');
+      analyzeBtn.disabled = false;
 
-      const ingredientName = document.getElementById("ingredient-name");
-      ingredientName.textContent = data.ingredient;
+      // Display ingredient name
+      document.getElementById('ingredient-name').textContent = data.ingredient;
 
-      const qualityStatus = document.getElementById("quality-status");
-      qualityStatus.textContent = data.quality;
+      // Display freshness status
+      const freshnessIndicator = document.getElementById('freshness-indicator');
+      const statusIcon = document.getElementById('status-icon');
+      const qualityStatus = document.getElementById('quality-status');
+      const messageBox = document.getElementById('message-box');
+      const recipeSection = document.getElementById('recipe-section');
+      
       if (data.quality === "Fresh") {
-        qualityStatus.innerHTML = "Hooray! This ingredient is ready to cook and to eat. It looks fresh and safe to use.";
-
-        const recipeSection = document.getElementById("recipe-section");
-        const recipeContainer = document.getElementById("recipe-container");
-        recipeContainer.innerHTML = data.recipes
-          .map((recipe) => createRecipeCard(recipe))
-          .join("");
+        freshnessIndicator.className = "freshness-indicator fresh";
+        statusIcon.textContent = "✅";
+        qualityStatus.textContent = "Fresh - Safe to Use!";
+        messageBox.className = "message-box fresh";
+        messageBox.textContent = "Great news! This ingredient looks fresh and safe to cook. Check out our recipe recommendations below!";
+        
+        // Show recipes
+        const recipeContainer = document.getElementById('recipe-container');
+        if (data.recipes && data.recipes.length > 0) {
+          recipeSection.classList.remove('hidden');
+          recipeContainer.innerHTML = data.recipes
+            .map((recipe) => createRecipeCard(recipe))
+            .join("");
+        } else {
+          recipeSection.classList.remove('hidden');
+          recipeContainer.innerHTML = '<div class="no-recipes">No recipes found for this ingredient yet. Check back later!</div>';
+        }
       } else {
-        qualityStatus.innerHTML = "Unsafe! This ingredient appears to be old or spoiled. We recommend discarding it for safety.";
+        freshnessIndicator.className = "freshness-indicator spoiled";
+        statusIcon.textContent = "⚠️";
+        qualityStatus.textContent = "Spoiled - Do Not Use!";
+        messageBox.className = "message-box spoiled";
+        messageBox.textContent = "Warning! This ingredient appears to be spoiled or unsafe. We strongly recommend discarding it to avoid health risks.";
+        recipeSection.classList.add('hidden');
       }
 
-      document.getElementById("confidence").textContent =
-        data.confidence + "%";
+      // Display confidence scores
+      document.getElementById('ingredient-confidence').textContent = data.ingredient_confidence + "%";
+      document.getElementById('confidence').textContent = data.confidence + "%";
+
+      // Scroll to results
+      analysisResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     function createRecipeCard(recipe) {
       return `
-              <div class="recipe-card">
-                  <div class="recipe-title">${recipe.name}</div>
-                  <div class="recipe-translation">${recipe.name_translation}</div>
+        <div class="recipe-card">
+          <div class="recipe-title">${recipe.name}</div>
+          <div class="recipe-translation">${recipe.name_translation}</div>
 
-                  <div class="recipe-ingredients">
-                    Ingredients:
-                  </div>
-                  <ul class="ingredient-list">
-                    ${recipe.ingredients
-                      .map(
-                        (ingredient) => `<li class="ingredient-item">${ingredient}</li>`
-                      )
-                      .join("")}
-                  </ul>
+          <div class="recipe-ingredients">Ingredients</div>
+          <ul class="ingredient-list">
+            ${recipe.ingredients
+              .map((ingredient) => `<li class="ingredient-item">${ingredient}</li>`)
+              .join("")}
+          </ul>
 
-                  <div class="recipe-instructions">Instructions:</div>
-                  <ul class="instruction-list">
-                    ${recipe.instructions
-                      .map(
-                        (instruction) => `<li class="instruction-item">${instruction}</li>`
-                      )
-                      .join("")}
-                  </ul>
-              </div>
-          `;
-      }
+          <div class="recipe-instructions">Instructions</div>
+          <ol class="instruction-list">
+            ${recipe.instructions
+              .map((instruction) => `<li class="instruction-item">${instruction}</li>`)
+              .join("")}
+          </ol>
+        </div>
+      `;
+    }
   </script>
 </body>
 </html>
