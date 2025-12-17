@@ -29,13 +29,14 @@ CORS(app)  # Enable CORS for frontend
 
 # Download and load Indonesian recipes dataset
 print("Downloading Indonesian recipes dataset...")
-dataset_path = kagglehub.dataset_download("canggih/indonesian-food-recipes")
+dataset_path = kagglehub.dataset_download("albertnathaniel12/food-recipes-dataset")
 print(f"Path to dataset files: {dataset_path}")
 
 # Load the CSV file
 csv_files = [f for f in os.listdir(dataset_path) if f.endswith('.csv')]
 if csv_files:
     recipes_df = pd.read_csv(os.path.join(dataset_path, csv_files[0]))
+    # recipes_df.to_csv('recipes_loaded.csv')
     print(f"Loaded {len(recipes_df)} recipes from dataset")
 else:
     print("Warning: No CSV file found in dataset")
@@ -86,53 +87,57 @@ INGREDIENT_KEYWORDS = {
     'egg': ['egg', 'telur'],
     'tofu': ['tofu', 'tahu'],
     'tempeh': ['tempeh', 'tempe'],
-    'chevon': ['goat', 'kambing', 'chevon']
+    'chevon': ['goat', 'kambing', 'lamb', 'chevon']
 }
 
 def get_recipes_for_ingredient(ingredient, max_recipes=3):
-    """
-    Get recipes from the dataset that contain the specified ingredient
-    and translate them from Indonesian to English
-    """
     if recipes_df.empty:
         return []
-    
+
     keywords = INGREDIENT_KEYWORDS.get(ingredient.lower(), [ingredient.lower()])
-    matching_recipes = []
-    
-    for _, row in recipes_df.iterrows():
-        recipe_text = str(row.get('Title', '')).lower()
-        ingredients_text = str(row.get('Ingredients', '')).lower()
-        
-        if any(keyword in recipe_text or keyword in ingredients_text for keyword in keywords):
 
-            # ---- INGREDIENTS ----
-            ingredients_list = []
-            ingredients_en = []
-            if pd.notna(row.get('Ingredients')):
-                ingredients_list = [ing.strip() for ing in str(row['Ingredients']).split(',')]
-                ingredients_en = [translate_id_to_en(ing) for ing in ingredients_list]
+    # 1. Filter matching recipes first
+    mask = recipes_df['Title'].str.lower().fillna('').apply(
+        lambda title: any(k in title for k in keywords)
+    )
 
-            # ---- INSTRUCTIONS ----
-            instructions_list = []
-            instructions_en = []
-            if pd.notna(row.get('Steps')):
-                instructions_list = [step.strip() for step in str(row['Steps']).split('.') if step.strip()]
-                instructions_en = [translate_id_to_en(step) for step in instructions_list]
+    matched_df = recipes_df[mask]
 
-            recipe = {
-                'name': row.get('Title', 'Unknown Recipe'),
-                'name_translation': translate_id_to_en(row.get('Title')),
-                'ingredients': ingredients_en,
-                'instructions': instructions_en
-            }
+    if matched_df.empty:
+        return []
 
-            matching_recipes.append(recipe)
-            
-            if len(matching_recipes) >= max_recipes:
-                break
-    
-    return matching_recipes
+    # 2. Randomly sample different recipes each time
+    sampled_df = matched_df.sample(
+        n=min(max_recipes, len(matched_df))
+    )
+
+    results = []
+
+    for _, row in sampled_df.iterrows():
+        ingredients_en = []
+        instructions_en = []
+
+        if pd.notna(row.get('Ingredients')):
+            ingredients_en = [
+                translate_id_to_en(ing.strip())
+                for ing in str(row['Ingredients']).split(',')
+            ]
+
+        if pd.notna(row.get('Steps')):
+            instructions_en = [
+                translate_id_to_en(step.strip())
+                for step in str(row['Steps']).split('.')
+                if step.strip()
+            ]
+
+        results.append({
+            'name': row.get('Title', 'Unknown Recipe'),
+            'name_translation': translate_id_to_en(row.get('Title')),
+            'ingredients': ingredients_en,
+            'instructions': instructions_en
+        })
+
+    return results
 
 @app.route('/')
 def index():
