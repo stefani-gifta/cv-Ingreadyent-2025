@@ -105,8 +105,8 @@ flask run --host=0.0.0.0 --port=5000
 
 ### Step 1: Clone the repository
 ```bash
-git clone <YOUR_REPOSITORY_URL>
-cd <YOUR_REPOSITORY_FOLDER>
+git clone https://github.com/stefani-gifta/cv-Ingreadyent-2025
+cd cv-Ingreadyent-2025
 ```
 
 ---
