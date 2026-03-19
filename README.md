@@ -7,8 +7,6 @@ Primarily, it is dedicated to exchange students, travelers, and beginner cooks w
 
 Try it out in our [Hugging Face Space](https://huggingface.co/spaces/stefani-gifta/Ingreadyent)!
 
----
-
 ## Preview
 
 <table>
@@ -43,8 +41,6 @@ Try it out in our [Hugging Face Space](https://huggingface.co/spaces/stefani-gif
 - Fast inference using a lightweight MobileNetV2 model
 - Web-based interface powered by Flask
 
----
-
 ## Supported Classes
 
 ### Ingredient Categories
@@ -61,15 +57,13 @@ Try it out in our [Hugging Face Space](https://huggingface.co/spaces/stefani-gif
 - Fresh  
 - Spoiled  
 
----
+
 
 ## Tech Stack
 - **Backend**: Python, Flask
 - **Model**: PyTorch, MobileNetV2 (transfer learning)
 - **Frontend**: HTML, CSS, JavaScript (Flask templates)
 - **Deployment**: GitHub Codespaces or local machine
-
----
 
 ## Project Structure
 ```text
@@ -84,15 +78,11 @@ Try it out in our [Hugging Face Space](https://huggingface.co/spaces/stefani-gif
 └── .gitignore
 ```
 
----
-
 ## Run on GitHub Codespaces (Recommended)
 
 ### Step 1: Open in Codespaces
 1. Open this repository on GitHub
 2. Click **Code** → **Codespaces** → **Create codespace on main**
-
----
 
 ### Step 2: Set up virtual environment
 ```bash
@@ -100,15 +90,11 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
----
-
 ### Step 3: Install dependencies
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
-
----
 
 ### Step 4: Run the Flask app
 ```bash
@@ -122,14 +108,10 @@ export FLASK_ENV=development
 flask run --host=0.0.0.0 --port=5000
 ```
 
----
-
 ### Step 5: Open the web app
 1. Go to the **Ports** tab in Codespaces
 2. Open port **5000**
 3. Click the forwarded URL to access the app
-
----
 
 ## Run Locally (Windows / macOS / Linux)
 
@@ -138,8 +120,6 @@ flask run --host=0.0.0.0 --port=5000
 git clone https://github.com/stefani-gifta/cv-Ingreadyent-2025
 cd cv-Ingreadyent-2025
 ```
-
----
 
 ### Step 2: Create & activate virtual environment
 
@@ -155,15 +135,11 @@ python -m venv .venv
 .venv\Scripts\Activate.ps1
 ```
 
----
-
 ### Step 3: Install dependencies
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
-
----
 
 ### Step 4: Run the app
 ```bash
@@ -176,8 +152,6 @@ http://127.0.0.1:5000
 ```
 
 (You need to change the URL in the code first.)
-
----
 
 ## Flow of Ingreadyent
 1. User uploads an ingredient image
@@ -192,8 +166,6 @@ http://127.0.0.1:5000
 5. Results are returned as JSON
 6. Frontend displays predictions to the user
 
----
-
 ## Model Details
 - **Backbone**: MobileNetV2 (pretrained on ImageNet)
 - **Architecture**:
@@ -204,8 +176,6 @@ http://127.0.0.1:5000
 - **Optimizer**: Adam
 - **Epochs**: 12
 - **Batch Size**: 32
-
----
 
 ## Common Issues
 
@@ -225,23 +195,17 @@ flask run --host=0.0.0.0 --port=5000
 - Use the exact packages listed in `requirements.txt`
 - Upgrade pip before installing dependencies
 
----
-
 ## Limitations
 - Dataset size is limited
 - Freshness classification is binary (Fresh / Spoiled)
 - Model has not been tested with real-world users
 - Performance metrics beyond training loss are not included
 
----
-
 ## Future Work
 - Expand dataset size and diversity
 - Add multi-level freshness categories
 - Evaluate model using test-set metrics
 - Conduct real-user testing
-
----
 
 ## Authors
 - Aurelia Faren Suyanto
