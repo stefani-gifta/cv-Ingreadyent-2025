@@ -2,7 +2,10 @@
 **Image-Based Ingredient Identification with Freshness Detection (MobileNetV2 + Flask)**
 
 Ingreadyent is a lightweight, mobile-friendly web application that identifies food ingredients from images and predicts their quality (Fresh / Spoiled).  
+
 Primarily, it is dedicated to exchange students, travelers, and beginner cooks who might struggle to identify ingredients visually or due to language barriers.
+
+Try it out in our [Hugging Face Space](https://huggingface.co/spaces/stefani-gifta/Ingreadyent)!
 
 ---
 
