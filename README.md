@@ -1,4 +1,5 @@
-# Ingreadyent
+<h1 align="center">Ingreadyent</h1>
+
 **Image-Based Ingredient Identification with Freshness Detection (MobileNetV2 + Flask)**
 
 Ingreadyent is a lightweight, mobile-friendly web application that identifies food ingredients from images and predicts their quality (Fresh / Spoiled).  
@@ -9,27 +10,27 @@ Try it out in our [Hugging Face Space](https://huggingface.co/spaces/stefani-gif
 
 ## Preview
 
-<table>
+<table align="center">
   <tr>
     <td>
       <img src="https://github.com/user-attachments/assets/50a88447-5990-4bef-b34c-52847d926ce8" alt="Homepage" style="height:200px;">
-      <div>Homepage</div>
+      <div align="center">Homepage</div>
     </td>
     <td>
       <img src="https://github.com/user-attachments/assets/d4724b0e-1ee0-48b9-869b-2af69f4a4ad5" alt="Analyzing" style="height:200px;">
-      <div>Model's analyzing</div>
+      <div align="center">Model's analyzing</div>
     </td>
   </tr>
-</table>
-<table>
+</table align="center">
+<table align="center">
    <tr>
     <td>
       <img src="https://github.com/user-attachments/assets/a3bcada7-1248-489b-8f79-1e271e768ec7" alt="Identified" style="height:280px;">
-      <div>Result of classification</div>
+      <div align="center">Result of classification</div>
     </td>
     <td>
       <img src="https://github.com/user-attachments/assets/d13c3229-f6c2-4406-bbfe-a450dd5241eb" alt="Recipe" style="height:280px;">
-      <div>Recipe recommendation</div>
+      <div align="center">Recipe recommendation</div>
     </td>
   </tr>
 </table>
