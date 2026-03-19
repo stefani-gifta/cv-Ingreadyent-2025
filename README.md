@@ -34,12 +34,7 @@ Try it out in our [Hugging Face Space](https://huggingface.co/spaces/stefani-gif
   </tr>
 </table>
 
-## Features
-- Upload an ingredient image
-- Predict **ingredient type** (8 food)
-- Predict **state** (Fresh or Spoiled)
-- Fast inference using a lightweight MobileNetV2 model
-- Web-based interface powered by Flask
+---
 
 ## Supported Classes
 
@@ -57,26 +52,7 @@ Try it out in our [Hugging Face Space](https://huggingface.co/spaces/stefani-gif
 - Fresh  
 - Spoiled  
 
-
-
-## Tech Stack
-- **Backend**: Python, Flask
-- **Model**: PyTorch, MobileNetV2 (transfer learning)
-- **Frontend**: HTML, CSS, JavaScript (Flask templates)
-- **Deployment**: GitHub Codespaces or local machine
-
-## Project Structure
-```text
-.
-├── app.py                      # Flask application (routes & inference)
-├── templates/                  # HTML templates for UI
-├── mobilenetv2_model.py        # Model architecture & loading logic
-├── mobilenetv2_cv_model.pt     # Trained PyTorch model weights
-├── ingredients-dataset/        # Dataset (for training)
-├── requirements.txt            # Python dependencies
-├── README.md
-└── .gitignore
-```
+---
 
 ## Run on GitHub Codespaces (Recommended)
 
@@ -112,6 +88,8 @@ flask run --host=0.0.0.0 --port=5000
 1. Go to the **Ports** tab in Codespaces
 2. Open port **5000**
 3. Click the forwarded URL to access the app
+
+---
 
 ## Run Locally (Windows / macOS / Linux)
 
@@ -153,7 +131,28 @@ http://127.0.0.1:5000
 
 (You need to change the URL in the code first.)
 
-## Flow of Ingreadyent
+---
+
+## Tech Stack
+- **Model**: PyTorch, MobileNetV2 (transfer learning)
+- **Frontend**: HTML, CSS, JavaScript (Flask templates)
+- **Backend**: Python, Flask
+- **Deployment**: GitHub Codespaces or local machine
+
+## Project Structure
+```text
+.
+├── app.py                      # Flask application (routes & inference)
+├── templates/                  # HTML templates for UI
+├── mobilenetv2_model.py        # Model architecture & loading logic
+├── mobilenetv2_cv_model.pt     # Trained PyTorch model weights
+├── ingredients-dataset/        # Dataset (for training)
+├── requirements.txt            # Python dependencies
+├── README.md
+└── .gitignore
+```
+
+## App Flow
 1. User uploads an ingredient image
 2. Frontend validates file type and size
 3. Image is sent to Flask backend via POST request
@@ -179,11 +178,11 @@ http://127.0.0.1:5000
 
 ## Common Issues
 
-### Model file not found
+1. **Model file not found**
 - Ensure `mobilenetv2_cv_model.pt` is located in the project root
 - Run `python app.py` from the root directory
 
-### Port not accessible
+2. **Port not accessible**
 - Run Flask with:
 ```bash
 flask run --host=0.0.0.0 --port=5000
@@ -191,7 +190,7 @@ flask run --host=0.0.0.0 --port=5000
 
 - Make sure the port is correct in the ```app.py```
 
-### Dependency errors
+3. **Dependency errors**
 - Use the exact packages listed in `requirements.txt`
 - Upgrade pip before installing dependencies
 
@@ -214,3 +213,6 @@ flask run --host=0.0.0.0 --port=5000
 
 ## Lecturer
 Jaehyeon Park
+
+## License
+This project is licensed under the terms of the MIT license.
