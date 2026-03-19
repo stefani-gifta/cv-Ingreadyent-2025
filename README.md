@@ -9,6 +9,33 @@ Try it out in our [Hugging Face Space](https://huggingface.co/spaces/stefani-gif
 
 ---
 
+## Preview
+
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/user-attachments/assets/50a88447-5990-4bef-b34c-52847d926ce8" alt="Homepage" style="height:200px;">
+      <div>Homepage</div>
+    </td>
+    <td>
+      <img src="https://github.com/user-attachments/assets/d4724b0e-1ee0-48b9-869b-2af69f4a4ad5" alt="Analyzing" style="height:200px;">
+      <div>Model's analyzing</div>
+    </td>
+  </tr>
+</table>
+<table>
+   <tr>
+    <td>
+      <img src="https://github.com/user-attachments/assets/a3bcada7-1248-489b-8f79-1e271e768ec7" alt="Identified" style="height:280px;">
+      <div>Result of classification</div>
+    </td>
+    <td>
+      <img src="https://github.com/user-attachments/assets/d13c3229-f6c2-4406-bbfe-a450dd5241eb" alt="Recipe" style="height:280px;">
+      <div>Recipe recommendation</div>
+    </td>
+  </tr>
+</table>
+
 ## Features
 - Upload an ingredient image
 - Predict **ingredient type** (8 food)
